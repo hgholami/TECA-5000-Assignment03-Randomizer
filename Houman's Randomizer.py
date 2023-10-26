@@ -2,7 +2,6 @@ import maya.cmds as cmds
 from random import randint
 from random import uniform as randF
 from enum import IntEnum
-from itertools import product as iterProd
 
 class IND(IntEnum):
     x=0
@@ -150,11 +149,10 @@ def SetObjCount(count:int):
 
 def IsSpaceEnough() -> bool:
     global spotCount
-    spotCount = 0
-    for x, y, z in iterProd(range(distSpaceMinMax[IND.min][IND.x], distSpaceMinMax[IND.max][IND.x] + 1),
-                            range(distSpaceMinMax[IND.min][IND.y], distSpaceMinMax[IND.max][IND.y] + 1), 
-                            range(distSpaceMinMax[IND.min][IND.z], distSpaceMinMax[IND.max][IND.z] + 1)):
-        spotCount += 1
+    spotCount = ((distSpaceMinMax[IND.max][IND.x] - distSpaceMinMax[IND.min][IND.x] + 1)
+                 *(distSpaceMinMax[IND.max][IND.y] - distSpaceMinMax[IND.min][IND.y] + 1)
+                 *(distSpaceMinMax[IND.max][IND.z] - distSpaceMinMax[IND.min][IND.z] + 1))
+    # print(spotCount)
     return spotCount >= objCount
         
 
